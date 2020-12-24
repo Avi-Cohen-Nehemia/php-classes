@@ -5,11 +5,29 @@ declare(strict_types=1);
 // class should be declared with a capital letter to distinguish it from other things
 class Person
 {
-    // First declare all the default properties the class has
+    // static functions belong to the class itself and are not bound to the specific class instance
+    // we cannot use $this in a static method
+    public static function getAllLastNames(array $people) : array
+    {
+        $lastNames = [];
+
+        foreach ($people as $key => $person) {
+            $lastNames[] = $person->getLastName();
+        }
+
+        return $lastNames;
+    }
+
+    // After declaring any static methods, declare all the default properties the class has
     private $firstName;
     private $lastName;
     // We can give a default value to a property we declare
     private $legs = 2;
+
+    // properties can be public/private/protected which determine if a method will be accessible outside the class or not
+    // public means that the Class's properties are accessible from anywhere in your code
+    // private will make the Class's properties accessible only then using the $this keyword which means they can be used only from within the class
+    // As a general guide most of the time our methods will be public and the properties private
 
 
     // Then in the construct function we can define the arguments for creating the class
@@ -21,7 +39,11 @@ class Person
         $this->lastName = $last;
     }
 
-    // properties can be public/private/protected which determine if a method will be accessible outside the class or not
+    public function getLastName() : string
+    {
+        return $this->lastName;
+    }
+
     public function getFullName() : string
     {
         return "{$this->firstName} {$this->lastName}";
@@ -42,5 +64,12 @@ class Person
 $avi = new Person("Avi", "Cohen-Nehemia");
 $zoe = new Person("Zoe", "Last");
 
+// The line below will throw an error because we cannot use a private property outside the class
+// echo $avi->firstName;
+
 echo $avi->getFullName();
 echo $zoe->setLastName('Cohen-Nehemia')->getFullName();
+
+// in order to use a static method we use 'ClassName::MethodName()'
+$result = Person::getAllLastNames([$avi, $zoe]);
+var_dump($result);
