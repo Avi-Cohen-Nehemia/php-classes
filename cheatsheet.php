@@ -5,7 +5,7 @@ declare(strict_types=1);
 // class should be declared with a capital letter to distinguish it from other things
 class Person
 {
-    // static functions belong to the class itself and are not bound to the specific class instance
+    // static functions belong to the class itself and are not part of a specific class instance
     // we cannot use $this in a static method
     public static function getAllLastNames(array $people) : array
     {
