@@ -14,16 +14,22 @@ class Person
 
     // Then in the construct function we can define the arguments for creating the class
     // and which properties will be affected by those arguments
-    public function __construct($first, $last)
+    public function __construct(string $first, string $last)
     {
+        // we do not use a the $ sign to access properties of a class
         $this->firstName = $first;
         $this->lastName = $last;
     }
 
     // properties can be public/private/protected which determine if a method will be accessible outside the class or not
-    public function getFullName()
+    public function getFullName() : string
     {
-        return $this->firstName . " " . $this->lastName;
+        return "{$this->firstName} {$this->lastName}";
+    }
+
+    public function setLastName(string $newLastName)
+    {
+        $this->lastName = $newLastName;
     }
 }
 
@@ -31,6 +37,8 @@ class Person
 // and we pass the values we wish to give the default properties
 $avi = new Person("Avi", "Cohen-Nehemia");
 $zoe = new Person("Zoe", "Last");
+
+$zoe->setLastName('Cohen-Nehemia');
 
 echo $avi->getFullName();
 echo $zoe->getFullName();
