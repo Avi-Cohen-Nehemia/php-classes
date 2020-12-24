@@ -27,9 +27,13 @@ class Person
         return "{$this->firstName} {$this->lastName}";
     }
 
-    public function setLastName(string $newLastName)
+    // If we write a method that does not have to return anything it is still
+    // better to get it to return something so we could keep chaining methods if we wanted to.
+    // The return type in this case would be the class that we are working with
+    public function setLastName(string $newLastName) : Person
     {
         $this->lastName = $newLastName;
+        return $this;
     }
 }
 
@@ -38,7 +42,5 @@ class Person
 $avi = new Person("Avi", "Cohen-Nehemia");
 $zoe = new Person("Zoe", "Last");
 
-$zoe->setLastName('Cohen-Nehemia');
-
 echo $avi->getFullName();
-echo $zoe->getFullName();
+echo $zoe->setLastName('Cohen-Nehemia')->getFullName();
